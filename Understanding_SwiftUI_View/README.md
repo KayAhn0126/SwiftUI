@@ -1,4 +1,4 @@
-# SwiftUI-Basic
+# Understanding of SwiftUI View
 
 ## 🍎 Resume shortcut
 - option + command + p
@@ -53,3 +53,49 @@ struct ImageView: View {
     - aspectRatio modifier를 거치고 나서 반환된 값은 View이다.
     - View 타입에는 .renderingMode() modifier가 없다.
     - 즉, "sun.max.fill"로 image 생성 -> 반환 받은 image를 aspectRatio()를 통해 modify 후 View 반환 (여기까지는 가능) -> View 타입은 renderingMode() modifier가 없으므로 에러 발생.
+
+## 🍎 여러가지 Stack의 진행방향
+![](https://i.imgur.com/qSDNlfv.png)
+- 기본이 되는 **H,V,Z Stacks**
+- HStack -> Left to Right
+- VStack -> Top to Bottom
+- ZStack -> Back to Front
+
+## 🍎 Stack을 이용해 레이아웃 구성하기
+- 왼쪽 하단의 뷰를 코드로 그려보면 아래와 같다
+![](https://i.imgur.com/BUW8sGt.png)
+
+```swift
+struct ProfileView: View {
+    var body: some View {
+        ZStack(alignment: .bottom) {
+            Image("ProfilePicture")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Rachael Chiseck")
+                        .font(.headline)
+                    Text("Chief Executive Officer")
+                        .font(.subheadline)
+                }
+                Spacer()
+            }
+            .padding()
+            .foregroundColor(.primary)
+            .background(Color.primary
+                            .colorInvert()
+                            .opacity(0.75))
+        }
+    }
+}
+```
+
+## 🍎 실습
+| 화면 | 코드 |
+|:----:|:----:|
+| ![](https://i.imgur.com/0PHGGLB.png)|![](https://i.imgur.com/gTwuiJX.png)|
+
+
+## 🍎 Citation
+[애플 공식 문서](https://developer.apple.com/documentation/swiftui/building-layouts-with-stack-views)
